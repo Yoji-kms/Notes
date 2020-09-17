@@ -1,4 +1,4 @@
-package com.yoji.notes;
+package com.yoji.notes.authentication;
 
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -8,6 +8,7 @@ import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import java.util.Objects;
 
+@SuppressWarnings("deprecation")
 public class FingerprintUtils {
     private FingerprintUtils(){}
 

@@ -1,4 +1,4 @@
-package com.yoji.notes;
+package com.yoji.notes.authentication;
 
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;

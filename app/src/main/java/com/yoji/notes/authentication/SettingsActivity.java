@@ -1,10 +1,8 @@
-package com.yoji.notes;
+package com.yoji.notes.authentication;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,16 +11,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class SettingsActivity extends AppCompatActivity implements FragmentResultListener, Keystore {
+import com.yoji.notes.R;
+
+public class SettingsActivity extends AuthenticationActivity implements FragmentResultListener {
 
     private EditText newPinEdtTxt;
     private EditText confirmPinEdtTxt;
     private Button saveBtn;
-
-    private SharedPreferences sharedPreferences;
 
     private TextWatcher confirmPinTxtWatcher = new TextWatcher() {
         @Override
@@ -50,17 +47,11 @@ public class SettingsActivity extends AppCompatActivity implements FragmentResul
 
     private View.OnClickListener saveBtnOnClickListener = v -> {
         String enteredPin = confirmPinEdtTxt.getText().toString().trim();
-        if (!checkPin(enteredPin)) {
-            saveNewPin(enteredPin);
+        saveNewPin(enteredPin);
 
-            if (!fingerprintEnabled()) {
-                DialogFragment dialogFragment = new UseFingerprintDialogFragment();
-                dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
-            }
-        }else {
-            Toast.makeText(this, R.string.match_pin, Toast.LENGTH_SHORT).show();
-            newPinEdtTxt.setText("");
-            confirmPinEdtTxt.setText("");
+        if (!fingerprintEnabled()) {
+            DialogFragment dialogFragment = new UseFingerprintDialogFragment();
+            dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
         }
     };
 
@@ -104,39 +95,8 @@ public class SettingsActivity extends AppCompatActivity implements FragmentResul
 
     @Override
     public void onFinishDialogListener(boolean useFingerprint) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Key.FINGERPRINT, useFingerprint);
-        editor.apply();
+        enableFingerprint(useFingerprint);
         Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean hasNotSavedPin() {
-        sharedPreferences = getSharedPreferences("saved_pin", MODE_PRIVATE);
-        String savedPin = sharedPreferences.getString(Key.PIN, "");
-        return savedPin.equals("");
-    }
-
-    @Override
-    public boolean checkPin(String pin) {
-        String encodedPin = sharedPreferences.getString(Key.PIN, "");
-        String savedIv = sharedPreferences.getString(Key.IV, "");
-        String decodedPin = CryptoUtils.decryptData(encodedPin, savedIv);
-        return pin.equals(decodedPin);
-    }
-
-    @Override
-    public void saveNewPin(String newPin) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        String encodedPin = CryptoUtils.encryptText(newPin);
-        editor.putString(Key.PIN, encodedPin);
-        editor.putString(Key.IV, CryptoUtils.getIv());
-        editor.apply();
-    }
-
-    private boolean fingerprintEnabled() {
-        sharedPreferences = getSharedPreferences("saved_pin", MODE_PRIVATE);
-        return sharedPreferences.getBoolean(Key.FINGERPRINT, false);
     }
 }

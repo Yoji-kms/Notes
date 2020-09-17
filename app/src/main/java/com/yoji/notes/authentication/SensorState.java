@@ -1,4 +1,4 @@
-package com.yoji.notes;
+package com.yoji.notes.authentication;
 
 public enum SensorState {
     NOT_SUPPORTED, //функция не поддерживается

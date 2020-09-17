@@ -1,4 +1,4 @@
-package com.yoji.notes;
+package com.yoji.notes.authentication;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+
+import com.yoji.notes.R;
 
 public class UseFingerprintDialogFragment extends DialogFragment implements
         DialogInterface.OnClickListener {

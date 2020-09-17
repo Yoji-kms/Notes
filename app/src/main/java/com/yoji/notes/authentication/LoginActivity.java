@@ -1,14 +1,12 @@
-package com.yoji.notes;
+package com.yoji.notes.authentication;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 import androidx.core.widget.ImageViewCompat;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,29 +16,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yoji.notes.MainActivity;
+import com.yoji.notes.R;
+
 import java.util.concurrent.Executor;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AuthenticationActivity {
 
-    private StringBuilder enteredPin;
+    private StringBuilder enteredPinSb;
 
     private ImageView[] pinCircles = new ImageView[4];
     private Button[] numBtns = new Button[10];
     private TextView messageTxtView;
 
-    private SharedPreferences sharedPreferences;
-
     private View.OnClickListener numBtnOnClickListener = v -> {
-        enteredPin.append(((Button) v).getText().toString());
-        if (enteredPin.length() == 4) {
+        enteredPinSb.append(((Button) v).getText().toString());
+        if (enteredPinSb.length() == 4) {
             checkPin();
         }
         setPinCirclesColor();
     };
 
     private View.OnClickListener backspaceBtnOnClickListener = v -> {
-        if (enteredPin.length() > 0) {
-            enteredPin.setLength(enteredPin.length() - 1);
+        if (enteredPinSb.length() > 0) {
+            enteredPinSb.setLength(enteredPinSb.length() - 1);
         }
         setPinCirclesColor();
     };
@@ -69,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        enteredPin = new StringBuilder();
+        enteredPinSb = new StringBuilder();
         pinCircles[0] = findViewById(R.id.pinCircle1Id);
         pinCircles[1] = findViewById(R.id.pinCircle2Id);
         pinCircles[2] = findViewById(R.id.pinCircle3Id);
@@ -168,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setPinCirclesColor() {
         for (int i = 0; i < 4; i++) {
-            setPinCircleColor(pinCircles[i], i < enteredPin.length());
+            setPinCircleColor(pinCircles[i], i < enteredPinSb.length());
         }
     }
 
@@ -185,22 +184,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkPin() {
-        String encodedPin = sharedPreferences.getString(Key.PIN, "");
-        String savedIv = sharedPreferences.getString(Key.IV, "");
-        String decodedPin = CryptoUtils.decryptData(encodedPin, savedIv);
-        if (enteredPin.toString().equals(decodedPin)) {
+        if (super.checkPin(enteredPinSb.toString())) {
             startMainActivity();
         } else {
-                Toast.makeText(this, R.string.wrong_pin, Toast.LENGTH_SHORT).show();
-            enteredPin.setLength(0);
+            Toast.makeText(this, R.string.wrong_pin, Toast.LENGTH_SHORT).show();
+            enteredPinSb.setLength(0);
             setPinCirclesColor();
         }
-    }
-
-    boolean hasNotSavedPin() {
-        sharedPreferences = getSharedPreferences("saved_pin", MODE_PRIVATE);
-        String savedPin = sharedPreferences.getString(Key.PIN, "");
-        return savedPin.equals("");
     }
 
     private void createPin() {
@@ -211,10 +201,5 @@ public class LoginActivity extends AppCompatActivity {
     private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
-    }
-
-    private boolean fingerprintEnabled() {
-        sharedPreferences = getSharedPreferences("saved_pin", MODE_PRIVATE);
-        return sharedPreferences.getBoolean(Key.FINGERPRINT, false);
     }
 }
