@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.concurrent.Executor;
 
-public class VerificationActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private StringBuilder enteredPin;
 
@@ -97,7 +97,7 @@ public class VerificationActivity extends AppCompatActivity {
 
     private void biometric() {
         Executor executor = ContextCompat.getMainExecutor(this);
-        BiometricPrompt biometricPrompt = new BiometricPrompt(VerificationActivity.this,
+        BiometricPrompt biometricPrompt = new BiometricPrompt(LoginActivity.this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode,
@@ -145,12 +145,12 @@ public class VerificationActivity extends AppCompatActivity {
 
                 @Override
                 public void onAuthenticationError(int errMsgId, CharSequence errString) {
-                    Toast.makeText(VerificationActivity.this, errString, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, errString, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-                    Toast.makeText(VerificationActivity.this, helpString, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, helpString, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -160,7 +160,7 @@ public class VerificationActivity extends AppCompatActivity {
 
                 @Override
                 public void onAuthenticationFailed() {
-                    Toast.makeText(VerificationActivity.this, "Try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Try again", Toast.LENGTH_SHORT).show();
                 }
             };
         }
@@ -204,12 +204,12 @@ public class VerificationActivity extends AppCompatActivity {
     }
 
     private void createPin() {
-        Intent intent = new Intent(VerificationActivity.this, SettingsActivity.class);
+        Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
         startActivity(intent);
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
 

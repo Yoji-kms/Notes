@@ -22,10 +22,11 @@
     <string name="cancel">Cancel</string>
     <string name="use_fingerprint_to_login">You can use fingerprint to login</string>
     <string name="dialog_title_fingerprint">Use fingerprint</string>
-    <string name="dialog_title_biometric">Use fingerprint</string>
+    <string name="dialog_title_biometric">Use biometric</string>
     <string name="dialog_message_fingerprint">Do you want to use fingerprint?</string>
     <string name="dialog_message_biometric">Do you want to use biometric?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="wrong_pin">Wrong pin</string>
+    <string name="match_pin">This pin is already installed</string>
 </resources>

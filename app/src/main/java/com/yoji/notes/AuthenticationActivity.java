@@ -1,4 +1,6 @@
 package com.yoji.notes;
 
-public class AuthenticationActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class AuthenticationActivity extends AppCompatActivity {
 }

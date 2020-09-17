@@ -41,11 +41,11 @@ public class UseFingerprintDialogFragment extends DialogFragment implements
     public void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case Dialog.BUTTON_POSITIVE:
-                listener.onFinishDialog(true);
+                listener.onFinishDialogListener(true);
                 dismiss();
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
-                listener.onFinishDialog(false);
+                listener.onFinishDialogListener(false);
                 dismiss();
                 break;
         }

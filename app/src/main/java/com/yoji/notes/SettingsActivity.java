@@ -58,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity implements FragmentResul
                 dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
             }
         }else {
-            Toast.makeText(this, "This pin is already installed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.match_pin, Toast.LENGTH_SHORT).show();
             newPinEdtTxt.setText("");
             confirmPinEdtTxt.setText("");
         }
@@ -103,11 +103,11 @@ public class SettingsActivity extends AppCompatActivity implements FragmentResul
     }
 
     @Override
-    public void onFinishDialog(boolean useFingerprint) {
+    public void onFinishDialogListener(boolean useFingerprint) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Key.FINGERPRINT, useFingerprint);
         editor.apply();
-        Intent intent = new Intent(SettingsActivity.this, VerificationActivity.class);
+        Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 
