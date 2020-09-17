@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:id="@+id/enterNewPinTxtViewId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_new_pin"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/newPinEdtTxtId"/>
+
+    <EditText
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginVertical="8dp"
+        android:id="@+id/newPinEdtTxtId"
+        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="4"
+        android:maxLength="4"
+        android:digits="0123456789"
+        android:textSize="24sp"
+        android:hint="@string/pin_hint"
+        android:inputType="numberPassword"
+        app:layout_constraintEnd_toStartOf="@id/showNewPinBtnId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterNewPinTxtViewId"
+        app:layout_constraintBottom_toTopOf="@id/confirmPinTxtViewId"
+        android:importantForAutofill="no" />
+
+    <ToggleButton
+        android:id="@+id/showNewPinBtnId"
+        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/show_btn_width"
+        android:layout_height="@dimen/show_btn_height"
+        app:layout_constraintStart_toEndOf="@id/newPinEdtTxtId"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/btn_show_hide"
+        android:textOff=""
+        android:textOn=""
+        android:text=""
+        app:layout_constraintBaseline_toBaselineOf="@id/newPinEdtTxtId"/>
+
+    <TextView
+        android:id="@+id/confirmPinTxtViewId"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm_pin"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newPinEdtTxtId"
+        app:layout_constraintBottom_toTopOf="@id/confirmPinEdtTxtId"/>
+
+    <EditText
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginVertical="8dp"
+        android:layout_marginStart="16dp"
+        android:id="@+id/confirmPinEdtTxtId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:ems="10"
+        android:digits="0123456789"
+        android:maxLength="4"
+        android:hint="@string/pin_hint"
+        android:inputType="numberPassword"
+        app:layout_constraintEnd_toStartOf="@id/showConfirmPinBtnId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPinTxtViewId"
+        app:layout_constraintBottom_toTopOf="@id/saveBtnId"
+        android:importantForAutofill="no" />
+
+    <ToggleButton
+        android:id="@+id/showConfirmPinBtnId"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_show_hide"
+        android:layout_width="@dimen/show_btn_width"
+        android:layout_height="@dimen/show_btn_height"
+        android:textOff=""
+        android:textOn=""
+        android:text=""
+        app:layout_constraintStart_toEndOf="@id/confirmPinEdtTxtId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@id/confirmPinEdtTxtId"/>
+
+    <Button
+        android:id="@+id/saveBtnId"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:enabled="false"
+        tools:enabled="true"
+        android:background="#7E57C2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPinEdtTxtId"
+        app:layout_constraintBottom_toTopOf="@id/cancelBtnId"/>
+
+    <Button
+        android:id="@+id/cancelBtnId"
+        android:background="#EC407A"
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveBtnId"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

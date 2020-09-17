@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".VerificationActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/enter_pin"
+        android:textSize="50sp"/>
+
+    <LinearLayout
+        android:id="@+id/passwordCirclesLinearId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="16dp">
+
+        <ImageView
+            android:id="@+id/pinCircle1Id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/password_circle_1"
+            app:srcCompat="@drawable/pin_circle" />
+
+        <ImageView
+            android:id="@+id/pinCircle2Id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/password_circle_2"
+            app:srcCompat="@drawable/pin_circle" />
+
+        <ImageView
+            android:id="@+id/pinCircle3Id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/password_circle_3"
+            app:srcCompat="@drawable/pin_circle" />
+
+        <ImageView
+            android:id="@+id/pinCircle4Id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/password_circle_4"
+            app:srcCompat="@drawable/pin_circle" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_weight="6"
+        android:layout_height="0dp">
+
+        <Button
+            android:id="@+id/oneBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/one"
+            app:layout_constraintBaseline_toBaselineOf="@id/threeBtnId"
+            app:layout_constraintEnd_toStartOf="@id/twoBtnId"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/twoBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/two"
+            app:layout_constraintStart_toEndOf="@id/oneBtnId"
+            app:layout_constraintEnd_toStartOf="@id/threeBtnId"
+            app:layout_constraintBaseline_toBaselineOf="@id/threeBtnId" />
+
+        <Button
+            android:id="@+id/threeBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/three"
+            app:layout_constraintStart_toEndOf="@id/twoBtnId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/sixBtnId"/>
+
+        <Button
+            android:id="@+id/fourBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/four"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fiveBtnId"
+            app:layout_constraintBaseline_toBaselineOf="@id/sixBtnId"/>
+
+        <Button
+            android:id="@+id/fiveBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/five"
+            app:layout_constraintStart_toEndOf="@id/fourBtnId"
+            app:layout_constraintEnd_toStartOf="@id/sixBtnId"
+            app:layout_constraintBaseline_toBaselineOf="@id/sixBtnId"/>
+
+        <Button
+            android:id="@+id/sixBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/six"
+            app:layout_constraintStart_toEndOf="@id/fiveBtnId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/threeBtnId"
+            app:layout_constraintBottom_toTopOf="@id/nineBtnId"/>
+
+        <Button
+            android:id="@+id/sevenBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/seven"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/eightBtnId"
+            app:layout_constraintBaseline_toBaselineOf="@id/nineBtnId"/>
+
+        <Button
+            android:id="@+id/eightBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/eight"
+            app:layout_constraintStart_toEndOf="@id/sevenBtnId"
+            app:layout_constraintEnd_toStartOf="@id/nineBtnId"
+            app:layout_constraintBaseline_toBaselineOf="@id/nineBtnId"/>
+
+        <Button
+            android:id="@+id/nineBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/nine"
+            app:layout_constraintStart_toEndOf="@id/eightBtnId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sixBtnId"
+            app:layout_constraintBottom_toTopOf="@id/backspaceBtnId"/>
+
+        <Button
+            android:id="@+id/emptyBtnId"
+            android:enabled="false"
+            android:visibility="invisible"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/zeroBtnId"
+            app:layout_constraintBaseline_toBaselineOf="@id/backspaceBtnId"/>
+
+        <Button
+            android:id="@+id/zeroBtnId"
+            android:layout_width="@dimen/num_btn_width"
+            android:layout_height="@dimen/num_btn_height"
+            android:background="@drawable/btn_circle"
+            android:textSize="@dimen/num_btn_text_size"
+            android:text="@string/zero"
+            app:layout_constraintStart_toEndOf="@id/emptyBtnId"
+            app:layout_constraintEnd_toStartOf="@id/backspaceBtnId"
+            app:layout_constraintBaseline_toBaselineOf="@id/backspaceBtnId"/>
+
+        <Button
+            android:id="@+id/backspaceBtnId"
+            android:layout_margin="10dp"
+            android:layout_width="@dimen/backspace_btn_width"
+            android:layout_height="@dimen/backspace_btn_height"
+            android:background="@drawable/backspace"
+            app:layout_constraintTop_toBottomOf="@id/nineBtnId"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/zeroBtnId"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/messageTxtViewId"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:text="@string/use_fingerprint_to_login"/>
+</LinearLayout>

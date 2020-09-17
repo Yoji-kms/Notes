@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="password_circle_1">first password circle</string>
+    <string name="password_circle_2">second password circle</string>
+    <string name="password_circle_3">third password circle</string>
+    <string name="password_circle_4">fourth password circle</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="enter_pin">Enter pin:</string>
+    <string name="enter_new_pin">Enter new pin:</string>
+    <string name="confirm_pin">Confirm pin:</string>
+    <string name="save">Save</string>
+    <string name="pin_hint">1234</string>
+    <string name="cancel">Cancel</string>
+    <string name="use_fingerprint_to_login">You can use fingerprint to login</string>
+    <string name="dialog_title_fingerprint">Use fingerprint</string>
+    <string name="dialog_title_biometric">Use fingerprint</string>
+    <string name="dialog_message_fingerprint">Do you want to use fingerprint?</string>
+    <string name="dialog_message_biometric">Do you want to use biometric?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="wrong_pin">Wrong pin</string>
+</resources>
