@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        app:layout_constraintVertical_chainStyle="packed"
+        android:paddingHorizontal="8dp"
+        android:id="@+id/titleTxtViewId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="Title"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/editBtnId"
+        app:layout_constraintBottom_toTopOf="@id/textTxtViewId"/>
+
+    <TextView
+        android:id="@+id/textTxtViewId"
+        android:paddingHorizontal="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:maxLines="10"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@id/continueTxtViewId"
+        app:layout_constraintEnd_toStartOf="@id/editBtnId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTxtViewId"
+        tools:text="Some text..." />
+
+    <TextView
+        android:id="@+id/continueTxtViewId"
+        android:paddingHorizontal="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:maxLines="10"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@id/deadlineTxtViewId"
+        app:layout_constraintEnd_toStartOf="@id/editBtnId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTxtViewId"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:text="@string/show_the_whole_text"/>
+
+    <Button
+        app:layout_constraintVertical_chainStyle="packed"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:id="@+id/editBtnId"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/btn_edit"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textTxtViewId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/deleteBtnId"/>
+
+    <Button
+        android:id="@+id/deleteBtnId"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/btn_delete"
+        app:layout_constraintTop_toBottomOf="@id/editBtnId"
+        app:layout_constraintStart_toEndOf="@id/textTxtViewId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/deadlineTxtViewId"
+        android:paddingHorizontal="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:gravity="end"
+        tools:text="01/01/2020"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/continueTxtViewId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/editBtnId"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

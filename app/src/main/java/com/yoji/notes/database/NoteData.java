@@ -7,11 +7,14 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "notes_data")
 public class NoteData {
 
-    public NoteData (String title, String text, String deadline, String lastChangeTime){
+    public NoteData(){}
+
+    public NoteData(String title, String text, String deadline, String lastChangeTime) {
         this.title = title;
         this.text = text;
         this.deadline = deadline;
         this.lastChangeTime = lastChangeTime;
+        this.hasDeadline = !deadline.isEmpty();
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -48,11 +51,23 @@ public class NoteData {
         return text;
     }
 
+    @ColumnInfo(name = "has_deadline")
+    private boolean hasDeadline;
+
+    public boolean getHasDeadline() {
+        return hasDeadline;
+    }
+
+    public void setHasDeadline(boolean hasDeadline) {
+        this.hasDeadline = hasDeadline;
+    }
+
     @ColumnInfo(name = "deadline")
     private String deadline;
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+        this.hasDeadline = !deadline.isEmpty();
     }
 
     public String getDeadline() {

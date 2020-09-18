@@ -1,24 +1,24 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Notes</string>
     <string name="password_circle_1">first password circle</string>
     <string name="password_circle_2">second password circle</string>
     <string name="password_circle_3">third password circle</string>
     <string name="password_circle_4">fourth password circle</string>
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
-    <string name="four">4</string>
-    <string name="five">5</string>
-    <string name="six">6</string>
-    <string name="seven">7</string>
-    <string name="eight">8</string>
-    <string name="nine">9</string>
-    <string name="zero">0</string>
+    <string name="one" translatable="false">1</string>
+    <string name="two" translatable="false">2</string>
+    <string name="three" translatable="false">3</string>
+    <string name="four" translatable="false">4</string>
+    <string name="five" translatable="false">5</string>
+    <string name="six" translatable="false">6</string>
+    <string name="seven" translatable="false">7</string>
+    <string name="eight" translatable="false">8</string>
+    <string name="nine" translatable="false">9</string>
+    <string name="zero" translatable="false">0</string>
     <string name="enter_pin">Enter pin:</string>
     <string name="enter_new_pin">Enter new pin:</string>
     <string name="confirm_pin">Confirm pin:</string>
     <string name="save">Save</string>
-    <string name="pin_hint">1234</string>
+    <string name="pin_hint" translatable="false">1234</string>
     <string name="cancel">Cancel</string>
     <string name="use_fingerprint_to_login">You can use fingerprint to login</string>
     <string name="dialog_title_fingerprint">Use fingerprint</string>
@@ -34,4 +34,5 @@
     <string name="has_deadline">Has deadline</string>
     <string name="hint_date">dd/mm/yyyy</string>
     <string name="date_format">%1$2s/%2$2s/%3$4s</string>
+    <string name="show_the_whole_text" tools:ignore="TypographyEllipsis">... (Tap to show the whole note)</string>
 </resources>

@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class NotesRepository {
     private NotesDAO notesDAO;
@@ -21,24 +23,25 @@ public class NotesRepository {
         return allNotesData;
     }
 
-//    public long insertNotesData(NotesData notesData){
-//        Future<Long> noteIdFuture = NotesDatabase.databaseWriteExecutor.submit(
-//                () -> notesDAO.insert(notesData));
-//        long noteId = 0;
-//        try{
-//            noteId = noteIdFuture.get();
-//        }catch (ExecutionException | InterruptedException e){
-//            e.printStackTrace();
-//        }
-//        return noteId;
-//    }
-
     public void insertNoteData(NoteData noteData){
         NotesDatabase.databaseWriteExecutor.submit(() -> notesDAO.insert(noteData));
     }
 
     public NoteData getNoteById (long id){
-        return notesDAO.getNoteDataById(id);
+        Future<NoteData> noteDataFuture = NotesDatabase.databaseWriteExecutor.submit(
+                () -> notesDAO.getNoteDataById(id)
+        );
+        NoteData noteData = new NoteData();
+        try {
+            noteData = noteDataFuture.get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return noteData;
+    }
+
+    public void deleteNoteData(NoteData noteData){
+        NotesDatabase.databaseWriteExecutor.submit(() -> notesDAO.deleteNoteData(noteData));
     }
 
     public void updateNoteData(NoteData noteData){

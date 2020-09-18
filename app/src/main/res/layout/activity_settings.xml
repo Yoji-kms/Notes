@@ -22,7 +22,6 @@
         app:layout_constraintBottom_toTopOf="@id/newPinEdtTxtId"/>
 
     <EditText
-        app:layout_constraintHorizontal_chainStyle="packed"
         android:layout_marginVertical="8dp"
         android:id="@+id/newPinEdtTxtId"
         android:layout_marginStart="16dp"

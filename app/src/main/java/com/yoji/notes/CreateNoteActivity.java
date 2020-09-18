@@ -24,6 +24,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private EditText deadlineEdtTxt;
     private Button calendarBtn;
     private Button saveNoteBtn;
+    private CheckBox hasDeadlineCheckbox;
 
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
@@ -83,7 +84,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (!s.toString().equals(current)) {
+            if (!s.toString().equals(current) && !s.toString().isEmpty()) {
                 String inputClean = removeDividers(s.toString());
                 String currentClean = removeDividers(current);
 
@@ -126,7 +127,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         titleEdtTxt = findViewById(R.id.titleEdtTxtId);
         textEdtTxt = findViewById(R.id.textEdtTxtId);
         deadlineEdtTxt = findViewById(R.id.deadlineEdtTxtId);
-        CheckBox hasDeadlineCheckbox = findViewById(R.id.hasDeadlineCheckboxId);
+        hasDeadlineCheckbox = findViewById(R.id.hasDeadlineCheckboxId);
         calendarBtn = findViewById(R.id.calendarBtnId);
         saveNoteBtn = findViewById(R.id.saveNoteBtnId);
         Button cancelBtn = findViewById(R.id.cancelBtnId);
@@ -142,6 +143,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         notesRepository = new NotesRepository(getApplication());
         if (id != 0){
             noteData = notesRepository.getNoteById(id);
+            restoreNoteData(noteData);
         }
     }
 
@@ -212,5 +214,12 @@ public class CreateNoteActivity extends AppCompatActivity {
             noteData.setLastChangeTime(currentTime);
             notesRepository.updateNoteData(noteData);
         }
+    }
+
+    private void restoreNoteData(NoteData noteData){
+        titleEdtTxt.setText(noteData.getText());
+        textEdtTxt.setText(noteData.getText());
+        hasDeadlineCheckbox.setChecked(noteData.getHasDeadline());
+        deadlineEdtTxt.setText(noteData.getDeadline());
     }
 }

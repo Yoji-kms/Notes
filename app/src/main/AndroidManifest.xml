@@ -16,15 +16,15 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".authentication.SettingsActivity" />
-        <activity android:name=".CreateNoteActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+        <activity android:name=".authentication.SettingsActivity" />
+        <activity android:name=".CreateNoteActivity" />
     </application>
 
 </manifest>
