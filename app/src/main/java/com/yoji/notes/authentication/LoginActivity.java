@@ -47,7 +47,7 @@ public class LoginActivity extends AuthenticationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verification);
+        setContentView(R.layout.activity_login);
 
         if (hasNotSavedPin()) {
             createPin();

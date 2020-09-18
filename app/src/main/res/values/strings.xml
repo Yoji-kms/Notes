@@ -29,4 +29,9 @@
     <string name="no">No</string>
     <string name="wrong_pin">Wrong pin</string>
     <string name="match_pin">This pin is already installed</string>
+    <string name="title">Title</string>
+    <string name="note_text">Note text</string>
+    <string name="has_deadline">Has deadline</string>
+    <string name="hint_date">dd/mm/yyyy</string>
+    <string name="date_format">%1$2s/%2$2s/%3$4s</string>
 </resources>

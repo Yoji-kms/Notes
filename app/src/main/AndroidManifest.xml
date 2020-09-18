@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.yoji.notes">
 
-
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -13,15 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".authentication.LoginActivity">
+        <activity android:name=".authentication.LoginActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".authentication.SettingsActivity" />
+        <activity android:name=".CreateNoteActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".authentication.SettingsActivity" />
     </application>
 
 </manifest>

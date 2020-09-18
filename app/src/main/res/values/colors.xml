@@ -2,8 +2,11 @@
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccent">#29B6F6</color>
 
     <color name="pin_circle_full">#43B61A</color>
     <color name="pin_circle_empty">#9C9C9C</color>
+
+    <color name="save_btn_color">#7E57C2</color>
+    <color name="cancel_btn_color">#EC407A</color>
 </resources>
