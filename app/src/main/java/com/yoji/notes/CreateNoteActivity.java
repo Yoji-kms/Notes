@@ -217,7 +217,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     }
 
     private void restoreNoteData(NoteData noteData){
-        titleEdtTxt.setText(noteData.getText());
+        titleEdtTxt.setText(noteData.getTitle());
         textEdtTxt.setText(noteData.getText());
         hasDeadlineCheckbox.setChecked(noteData.getHasDeadline());
         deadlineEdtTxt.setText(noteData.getDeadline());

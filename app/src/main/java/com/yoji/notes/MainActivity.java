@@ -2,6 +2,8 @@ package com.yoji.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,11 +21,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements ItemOnClickListener {
 
     private FloatingActionButton addItemFab;
-    private ListView notesListView;
+    private RecyclerView notesListView;
 
     private NotesRepository notesRepository;
     private LiveData<List<NoteData>> allNotesData;
     private MainActivityAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     private View.OnClickListener addItemOnClickListener = v -> startActivity(
             new Intent(MainActivity.this, CreateNoteActivity.class));
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        layoutManager = new LinearLayoutManager(this);
+
         addItemFab = findViewById(R.id.addItemFabId);
         addItemFab.setOnClickListener(addItemOnClickListener);
         notesListView = findViewById(R.id.notesListViewId);
@@ -47,7 +52,8 @@ public class MainActivity extends AppCompatActivity implements ItemOnClickListen
         allNotesData = notesRepository.getAllNotesData();
         adapter = new MainActivityAdapter(this, this);
         notesListView.setAdapter(adapter);
-        notesListView.setOnItemLongClickListener(onItemLongClickListener);
+        notesListView.setLayoutManager(layoutManager);
+//        notesListView.setOnL(onItemLongClickListener);
     }
 
     @Override
