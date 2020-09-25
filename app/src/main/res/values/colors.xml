@@ -9,4 +9,8 @@
 
     <color name="save_btn_color">#7E57C2</color>
     <color name="cancel_btn_color">#EC407A</color>
+
+    <color name="deadline_ok">#FFFFFF</color>
+    <color name="deadline_close">#FFEE58</color>
+    <color name="deadline_passed">#EF5350</color>
 </resources>

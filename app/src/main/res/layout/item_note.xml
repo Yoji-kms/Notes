@@ -1,96 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="8dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="4dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp">
 
-    <TextView
-        app:layout_constraintVertical_chainStyle="packed"
-        android:paddingHorizontal="8dp"
-        android:id="@+id/titleTxtViewId"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
-        tools:text="Title"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/editBtnId"
-        app:layout_constraintBottom_toTopOf="@id/textTxtViewId"/>
+        android:layout_marginVertical="4dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textTxtViewId"
-        android:paddingHorizontal="8dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:maxLines="10"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@id/continueTxtViewId"
-        app:layout_constraintEnd_toStartOf="@id/editBtnId"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTxtViewId"
-        tools:text="Some text..." />
+        <TextView
+            android:id="@+id/titleTxtViewId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:text="Title"
+            tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/continueTxtViewId"
-        android:paddingHorizontal="8dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:maxLines="10"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@id/deadlineTxtViewId"
-        app:layout_constraintEnd_toStartOf="@id/editBtnId"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textTxtViewId"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:text="@string/show_the_whole_text"/>
+        <TextView
+            android:id="@+id/textTxtViewId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="10"
+            android:paddingHorizontal="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:text="Some text..." />
 
-    <Button
-        app:layout_constraintVertical_chainStyle="packed"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:id="@+id/editBtnId"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/btn_edit"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/textTxtViewId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/deleteBtnId"/>
+        <TextView
+            android:id="@+id/continueTxtViewId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="10"
+            android:paddingHorizontal="8dp"
+            android:text="@string/show_the_whole_text"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
-    <Button
-        android:id="@+id/deleteBtnId"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/btn_delete"
-        app:layout_constraintTop_toBottomOf="@id/editBtnId"
-        app:layout_constraintStart_toEndOf="@id/textTxtViewId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <TextView
-        android:id="@+id/deadlineTxtViewId"
-        android:paddingHorizontal="8dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:gravity="end"
-        tools:text="01/01/2020"
-        android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/continueTxtViewId"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/editBtnId"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/deadlineTxtViewId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingHorizontal="8dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="01/01/2020"
+            tools:visibility="visible" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class NotesRepository {
+public class NotesRoomRepository {
     private NotesDAO notesDAO;
 
     private LiveData<List<NoteData>> allNotesData;
 
-    public NotesRepository(Application application){
+    public NotesRoomRepository(Application application){
         NotesDatabase database = NotesDatabase.getDatabase(application);
         notesDAO = database.notesDAO();
         allNotesData = notesDAO.getNotesData();

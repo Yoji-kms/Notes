@@ -1,23 +1,25 @@
 package com.yoji.notes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+
 import com.yoji.notes.database.NoteData;
-import com.yoji.notes.database.NotesRepository;
 
 import java.util.Calendar;
+import java.util.Objects;
 
-public class CreateNoteActivity extends AppCompatActivity {
+public class CreateOrEditNoteActivity extends NoteActivity {
 
     private EditText titleEdtTxt;
     private EditText textEdtTxt;
@@ -29,7 +31,6 @@ public class CreateNoteActivity extends AppCompatActivity {
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
     private long id;
-    private NotesRepository notesRepository;
     private NoteData noteData;
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -40,7 +41,6 @@ public class CreateNoteActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String text = textEdtTxt.getText().toString();
-
             saveNoteBtn.setEnabled(!text.isEmpty());
         }
 
@@ -52,13 +52,13 @@ public class CreateNoteActivity extends AppCompatActivity {
     private CompoundButton.OnCheckedChangeListener checkboxListener = (buttonView, isChecked) -> {
         calendarBtn.setEnabled(isChecked);
         deadlineEdtTxt.setEnabled(isChecked);
-        if(!isChecked){
+        if (!isChecked) {
             deadlineEdtTxt.setText("");
         }
     };
 
     private DatePickerDialog.OnDateSetListener onDateSetListener = (view, year, month, dayOfMonth) -> {
-        String cleanDate = numToString(dayOfMonth) + numToString(month+1) + numToString(year);
+        String cleanDate = numToString(dayOfMonth) + numToString(month + 1) + numToString(year);
         String formattedDate = maskCleanDate(cleanDate);
         deadlineEdtTxt.setText(formattedDate);
 
@@ -132,6 +132,11 @@ public class CreateNoteActivity extends AppCompatActivity {
         saveNoteBtn = findViewById(R.id.saveNoteBtnId);
         Button cancelBtn = findViewById(R.id.cancelBtnId);
 
+        Toolbar toolbar = findViewById(R.id.toolbarId);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.note);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         textEdtTxt.addTextChangedListener(textWatcher);
         deadlineEdtTxt.addTextChangedListener(deadlineTextWatcher);
         hasDeadlineCheckbox.setOnCheckedChangeListener(checkboxListener);
@@ -140,27 +145,29 @@ public class CreateNoteActivity extends AppCompatActivity {
         calendarBtn.setOnClickListener(calendarBtnOnClickListener);
 
         calendar = Calendar.getInstance();
-        notesRepository = new NotesRepository(getApplication());
-        if (id != 0){
-            noteData = notesRepository.getNoteById(id);
+        if (id != 0) {
+            noteData = getNoteById(id);
             restoreNoteData(noteData);
         }
     }
 
-    private String numToString(int number){
-        if (number < 10){
+    private String numToString(int number) {
+        if (number < 10) {
             return "0" + number;
         }
         return "" + number;
     }
 
-    private int getNumberBetween (int number, int min, int max){
+    private int getNumberBetween(int number, int min, int max) {
         return Math.max(min, Math.min(max, number));
     }
 
-    private String maskCleanDate (String cleanDate){
+    private String maskCleanDate(String cleanDate) {
+        if (cleanDate.length() == 0) {
+            return "";
+        }
         if (cleanDate.length() < 8) {
-            switch (cleanDate.length()){
+            switch (cleanDate.length()) {
                 case 2:
                     int day = Integer.parseInt(cleanDate.substring(0, 2));
                     day = getNumberBetween(day, 1, 31);
@@ -169,7 +176,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                 case 4:
                     int month = Integer.parseInt(cleanDate.substring(2, 4));
                     month = getNumberBetween(month, 1, 12);
-                    cleanDate = cleanDate.substring(0,2) + numToString(month);
+                    cleanDate = cleanDate.substring(0, 2) + numToString(month);
                     break;
             }
             String ddmmyyyy = "ddmmyyyy";
@@ -194,32 +201,35 @@ public class CreateNoteActivity extends AppCompatActivity {
         return getString(R.string.date_format, dayStr, monthStr, yearStr);
     }
 
-    private String removeDividers (String string){
+    private String removeDividers(String string) {
         return string.replaceAll("[^\\d.]|\\.", "");
     }
 
-    private void saveNoteToDb(){
+    private void saveNoteToDb() {
         String title = titleEdtTxt.getText().toString().trim();
         String text = textEdtTxt.getText().toString().trim();
         String deadline = deadlineEdtTxt.getText().toString().trim();
-        String currentTime = String.valueOf(calendar.getTimeInMillis());
 
-        if (noteData == null) {
-            noteData = new NoteData(title, text, deadline, currentTime);
-            notesRepository.insertNoteData(noteData);
-        }else{
-            noteData.setTitle(title);
-            noteData.setText(text);
-            noteData.setDeadline(deadline);
-            noteData.setLastChangeTime(currentTime);
-            notesRepository.updateNoteData(noteData);
-        }
+        saveNote(noteData, title, text, deadline);
     }
 
-    private void restoreNoteData(NoteData noteData){
+    private void restoreNoteData(NoteData noteData) {
         titleEdtTxt.setText(noteData.getTitle());
         textEdtTxt.setText(noteData.getText());
         hasDeadlineCheckbox.setChecked(noteData.getHasDeadline());
-        deadlineEdtTxt.setText(noteData.getDeadline());
+        if (noteData.getDeadline() != null) {
+            deadlineEdtTxt.setText(noteData.getDeadline().toString());
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

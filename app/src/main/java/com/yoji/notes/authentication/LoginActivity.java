@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yoji.notes.MainActivity;
+import com.yoji.notes.NoteListActivity;
 import com.yoji.notes.R;
 
 import java.util.concurrent.Executor;
@@ -199,7 +199,7 @@ public class LoginActivity extends AuthenticationActivity {
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, NoteListActivity.class);
         startActivity(intent);
     }
 }

@@ -35,4 +35,10 @@
     <string name="hint_date">dd/mm/yyyy</string>
     <string name="date_format">%1$2s/%2$2s/%3$4s</string>
     <string name="show_the_whole_text" tools:ignore="TypographyEllipsis">... (Tap to show the whole note)</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="settings">Settings</string>
+    <string name="note">Note</string>
+    <string name="deadline">Deadline: </string>
 </resources>

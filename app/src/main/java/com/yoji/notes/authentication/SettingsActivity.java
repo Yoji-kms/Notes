@@ -1,5 +1,7 @@
 package com.yoji.notes.authentication;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -14,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ToggleButton;
 
 import com.yoji.notes.R;
+
+import java.util.Objects;
 
 public class SettingsActivity extends AuthenticationActivity implements FragmentResultListener {
 
@@ -68,6 +73,7 @@ public class SettingsActivity extends AuthenticationActivity implements Fragment
     private void init() {
         newPinEdtTxt = findViewById(R.id.newPinEdtTxtId);
         confirmPinEdtTxt = findViewById(R.id.confirmPinEdtTxtId);
+        Toolbar toolbar = findViewById(R.id.toolbarId);
 
         ToggleButton showNewPinBtn = findViewById(R.id.showNewPinBtnId);
         ToggleButton showConfirmPinBtn = findViewById(R.id.showConfirmPinBtnId);
@@ -78,6 +84,12 @@ public class SettingsActivity extends AuthenticationActivity implements Fragment
 
         showNewPinBtn.setOnCheckedChangeListener(showNewPinBtnOnCheckedChangeListener);
         showConfirmPinBtn.setOnCheckedChangeListener(showConfirmPinBtnOnCheckedChangeListener);
+
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.settings);
+        if (!hasNotSavedPin()) {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        }
 
         saveBtn.setOnClickListener(saveBtnOnClickListener);
         cancelBtn.setOnClickListener(cancelBtnOnClickListener);
@@ -98,5 +110,16 @@ public class SettingsActivity extends AuthenticationActivity implements Fragment
         enableFingerprint(useFingerprint);
         Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

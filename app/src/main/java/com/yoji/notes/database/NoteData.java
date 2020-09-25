@@ -3,18 +3,23 @@ package com.yoji.notes.database;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import java.sql.Date;
 
 @Entity(tableName = "notes_data")
+@TypeConverters(NoteData.DateConverter.class)
 public class NoteData {
 
     public NoteData(){}
 
-    public NoteData(String title, String text, String deadline, String lastChangeTime) {
+    public NoteData(String title, String text, Date deadline, Date lastChangeTime, boolean hasDeadline) {
         this.title = title;
         this.text = text;
         this.deadline = deadline;
         this.lastChangeTime = lastChangeTime;
-        this.hasDeadline = !deadline.isEmpty();
+        this.hasDeadline = hasDeadline;
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -63,25 +68,36 @@ public class NoteData {
     }
 
     @ColumnInfo(name = "deadline")
-    private String deadline;
+    private Date deadline;
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
-        this.hasDeadline = !deadline.isEmpty();
     }
 
-    public String getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
     @ColumnInfo(name = "last_change_time")
-    private String lastChangeTime;
+    private Date lastChangeTime;
 
-    public void setLastChangeTime(String lastChangeTime) {
+    public void setLastChangeTime(Date lastChangeTime) {
         this.lastChangeTime = lastChangeTime;
     }
 
-    public String getLastChangeTime() {
+    public Date getLastChangeTime() {
         return lastChangeTime;
+    }
+
+    public static class DateConverter{
+        @TypeConverter
+        public Date toDate (Long dateLong){
+            return dateLong == null ? null : new Date(dateLong);
+        }
+
+        @TypeConverter
+        public Long fromDate(Date date){
+            return date == null ? null : date.getTime();
+        }
     }
 }
