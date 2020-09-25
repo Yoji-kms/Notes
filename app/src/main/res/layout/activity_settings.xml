@@ -78,23 +78,23 @@
         app:layout_constraintBottom_toTopOf="@id/confirmPinEdtTxtId"/>
 
     <EditText
-        app:layout_constraintHorizontal_chainStyle="packed"
-        android:layout_marginVertical="8dp"
-        android:layout_marginStart="16dp"
         android:id="@+id/confirmPinEdtTxtId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:ems="10"
+        android:layout_marginVertical="8dp"
+        android:layout_marginStart="16dp"
         android:digits="0123456789"
-        android:maxLength="4"
+        android:ems="10"
         android:hint="@string/pin_hint"
+        android:importantForAutofill="no"
         android:inputType="numberPassword"
+        android:maxLength="4"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@id/showConfirmPinBtnId"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmPinTxtViewId"
-        app:layout_constraintBottom_toTopOf="@id/saveBtnId"
-        android:importantForAutofill="no" />
+        app:layout_constraintBottom_toTopOf="@id/saveBtnId"/>
 
     <ToggleButton
         android:id="@+id/showConfirmPinBtnId"
@@ -111,18 +111,18 @@
 
     <Button
         android:id="@+id/saveBtnId"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="16dp"
-        android:enabled="false"
-        tools:enabled="true"
-        android:background="@color/save_btn_color"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:background="@color/save_btn_color"
+        android:enabled="false"
         android:text="@string/save"
+        app:layout_constraintTop_toBottomOf="@id/confirmPinEdtTxtId"
+        app:layout_constraintBottom_toTopOf="@id/cancelBtnId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPinEdtTxtId"
-        app:layout_constraintBottom_toTopOf="@id/cancelBtnId"/>
+        tools:enabled="true" />
 
     <Button
         android:id="@+id/cancelBtnId"

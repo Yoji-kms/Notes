@@ -54,9 +54,12 @@ public class SettingsActivity extends AuthenticationActivity implements Fragment
         String enteredPin = confirmPinEdtTxt.getText().toString().trim();
         saveNewPin(enteredPin);
 
-        if (!fingerprintEnabled()) {
+        if (!fingerprintEnabled()
+                && FingerprintUtils.isSensorStateAt(SensorState.READY, this)) {
             DialogFragment dialogFragment = new UseFingerprintDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
+        }else{
+            finish();
         }
     };
 
@@ -85,8 +88,8 @@ public class SettingsActivity extends AuthenticationActivity implements Fragment
         showNewPinBtn.setOnCheckedChangeListener(showNewPinBtnOnCheckedChangeListener);
         showConfirmPinBtn.setOnCheckedChangeListener(showConfirmPinBtnOnCheckedChangeListener);
 
-        setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.settings);
+        setSupportActionBar(toolbar);
         if (!hasNotSavedPin()) {
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }

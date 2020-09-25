@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Notes</string>
-    <string name="password_circle_1">first password circle</string>
-    <string name="password_circle_2">second password circle</string>
-    <string name="password_circle_3">third password circle</string>
-    <string name="password_circle_4">fourth password circle</string>
+    <string name="password_circle_1" translatable="false">first password circle</string>
+    <string name="password_circle_2" translatable="false">second password circle</string>
+    <string name="password_circle_3" translatable="false">third password circle</string>
+    <string name="password_circle_4" translatable="false">fourth password circle</string>
     <string name="one" translatable="false">1</string>
     <string name="two" translatable="false">2</string>
     <string name="three" translatable="false">3</string>
@@ -28,12 +28,11 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="wrong_pin">Wrong pin</string>
-    <string name="match_pin">This pin is already installed</string>
     <string name="title">Title</string>
     <string name="note_text">Note text</string>
     <string name="has_deadline">Has deadline</string>
-    <string name="hint_date">dd/mm/yyyy</string>
-    <string name="date_format">%1$2s/%2$2s/%3$4s</string>
+    <string name="hint_date" translatable="false">dd/mm/yyyy</string>
+    <string name="date_format" translatable="false">%1$2s/%2$2s/%3$4s</string>
     <string name="show_the_whole_text" tools:ignore="TypographyEllipsis">... (Tap to show the whole note)</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
@@ -41,4 +40,7 @@
     <string name="settings">Settings</string>
     <string name="note">Note</string>
     <string name="deadline">Deadline: </string>
+    <string name="biometric_login">Login using biometric</string>
+    <string name="authentication_failed">Authentication failed. Try again</string>
+    <string name="authentication_error">Authentication error: </string>
 </resources>

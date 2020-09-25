@@ -58,11 +58,11 @@ public class LoginActivity extends AuthenticationActivity {
         if (fingerprintEnabled()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 biometric();
-            }else {
+            } else {
                 messageTxtView.setVisibility(View.VISIBLE);
                 fingerprint();
             }
-        }else{
+        } else {
             messageTxtView.setVisibility(View.INVISIBLE);
         }
     }
@@ -104,9 +104,10 @@ public class LoginActivity extends AuthenticationActivity {
                 super.onAuthenticationError(errorCode, errString);
                 if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
                     onBackPressed();
-                }else if (errorCode != BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+                } else if (errorCode != BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                     Toast.makeText(getApplicationContext(),
-                            "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                            getString(R.string.authentication_error) + errString,
+                            Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -115,23 +116,20 @@ public class LoginActivity extends AuthenticationActivity {
             public void onAuthenticationSucceeded(
                     @NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Toast.makeText(getApplicationContext(),
-                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();
                 startMainActivity();
             }
 
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                Toast.makeText(getApplicationContext(), "Authentication failed",
+                Toast.makeText(getApplicationContext(), R.string.authentication_failed,
                         Toast.LENGTH_SHORT).show();
             }
         });
 
         BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login")
-                .setSubtitle("Log in using biometric")
-                .setNegativeButtonText("Cancel")
+                .setTitle(getString(R.string.biometric_login))
+                .setNegativeButtonText(getString(R.string.cancel))
                 .build();
         biometricPrompt.authenticate(promptInfo);
     }
@@ -139,7 +137,6 @@ public class LoginActivity extends AuthenticationActivity {
     @SuppressWarnings("deprecation")
     private void fingerprint() {
         if (FingerprintUtils.isSensorStateAt(SensorState.READY, this)) {
-            Toast.makeText(this, "Use fingerprint to login", Toast.LENGTH_SHORT).show();
             new FingerprintManagerCompat.AuthenticationCallback() {
 
                 @Override
@@ -159,7 +156,8 @@ public class LoginActivity extends AuthenticationActivity {
 
                 @Override
                 public void onAuthenticationFailed() {
-                    Toast.makeText(LoginActivity.this, "Try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.authentication_failed,
+                            Toast.LENGTH_SHORT).show();
                 }
             };
         }

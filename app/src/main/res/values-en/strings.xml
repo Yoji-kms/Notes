@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Notes</string>
+    <string name="enter_pin">Enter pin</string>
+    <string name="enter_new_pin">Enter new pin:</string>
+    <string name="confirm_pin">Confirm pin:</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="use_fingerprint_to_login">You can use fingerprint to login</string>
+    <string name="dialog_title_fingerprint">Use fingerprint</string>
+    <string name="dialog_title_biometric">Use biometric</string>
+    <string name="dialog_message_fingerprint">Do you want to use fingerprint to login?</string>
+    <string name="dialog_message_biometric">Do you want to use biometric to login?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="wrong_pin">Wrong pin</string>
+    <string name="title">Title</string>
+    <string name="note_text">Note text</string>
+    <string name="has_deadline">Has deadline</string>
+    <string name="show_the_whole_text" tools:ignore="TypographyEllipsis">... (Tap to show the whole note)</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="settings">Settings</string>
+    <string name="note">Note</string>
+    <string name="deadline">"Deadline: "</string>
+    <string name="biometric_login">Login using biometric</string>
+    <string name="authentication_failed">Authentication failed. Try again</string>
+    <string name="authentication_error">Authentication error: </string>
+</resources>

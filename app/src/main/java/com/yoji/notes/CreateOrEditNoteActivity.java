@@ -133,8 +133,8 @@ public class CreateOrEditNoteActivity extends NoteActivity {
         Button cancelBtn = findViewById(R.id.cancelBtnId);
 
         Toolbar toolbar = findViewById(R.id.toolbarId);
-        setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.note);
+        setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         textEdtTxt.addTextChangedListener(textWatcher);
