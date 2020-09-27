@@ -28,6 +28,7 @@ public class LoginActivity extends AuthenticationActivity {
     private ImageView[] pinCircles = new ImageView[4];
     private Button[] numBtns = new Button[10];
     private TextView messageTxtView;
+    private Button fingerprintBtn;
 
     private View.OnClickListener numBtnOnClickListener = v -> {
         enteredPinSb.append(((Button) v).getText().toString());
@@ -43,6 +44,8 @@ public class LoginActivity extends AuthenticationActivity {
         }
         setPinCirclesColor();
     };
+
+    private View.OnClickListener fingerprintBtnOnClickListener = v -> biometric();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,10 @@ public class LoginActivity extends AuthenticationActivity {
         numBtns[8] = findViewById(R.id.eightBtnId);
         numBtns[9] = findViewById(R.id.nineBtnId);
         Button backspaceBtn = findViewById(R.id.backspaceBtnId);
+        fingerprintBtn = findViewById(R.id.fingerprintBtnId);
+        fingerprintBtn.setVisibility(View.INVISIBLE);
+        fingerprintBtn.setEnabled(false);
+        fingerprintBtn.setOnClickListener(fingerprintBtnOnClickListener);
 
         messageTxtView = findViewById(R.id.messageTxtViewId);
 
@@ -109,6 +116,9 @@ public class LoginActivity extends AuthenticationActivity {
                             getString(R.string.authentication_error) + errString,
                             Toast.LENGTH_SHORT)
                             .show();
+                } else {
+                    fingerprintBtn.setVisibility(View.VISIBLE);
+                    fingerprintBtn.setEnabled(true);
                 }
             }
 
@@ -199,5 +209,6 @@ public class LoginActivity extends AuthenticationActivity {
     private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, NoteListActivity.class);
         startActivity(intent);
+        finish();
     }
 }

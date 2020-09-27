@@ -8,12 +8,12 @@
     tools:context=".authentication.LoginActivity">
 
     <TextView
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/enter_pin"
-        android:textSize="40sp"/>
+        android:textSize="32sp"/>
 
     <LinearLayout
         android:id="@+id/passwordCirclesLinearId"
@@ -21,8 +21,8 @@
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:orientation="horizontal"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="24dp">
+        android:paddingHorizontal="50dp"
+        android:paddingTop="30dp">
 
         <ImageView
             android:id="@+id/pinCircle1Id"
@@ -165,9 +165,11 @@
             app:layout_constraintBottom_toTopOf="@id/backspaceBtnId"/>
 
         <Button
-            android:id="@+id/emptyBtnId"
+            android:id="@+id/fingerprintBtnId"
             android:enabled="false"
             android:visibility="invisible"
+            tools:visibility="visible"
+            android:background="@drawable/btn_biometric"
             android:layout_width="@dimen/num_btn_width"
             android:layout_height="@dimen/num_btn_height"
             app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +183,7 @@
             android:background="@drawable/btn_circle"
             android:textSize="@dimen/num_btn_text_size"
             android:text="@string/zero"
-            app:layout_constraintStart_toEndOf="@id/emptyBtnId"
+            app:layout_constraintStart_toEndOf="@id/fingerprintBtnId"
             app:layout_constraintEnd_toStartOf="@id/backspaceBtnId"
             app:layout_constraintBaseline_toBaselineOf="@id/backspaceBtnId"/>
 

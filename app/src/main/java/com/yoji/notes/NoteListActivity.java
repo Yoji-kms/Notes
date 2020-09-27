@@ -6,17 +6,22 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yoji.notes.database.NoteData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoteListActivity extends NoteActivity implements ItemOnClickListener {
@@ -102,6 +107,25 @@ public class NoteListActivity extends NoteActivity implements ItemOnClickListene
     }
 
     private void shareNote(NoteData noteData) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, createMessageToShare(noteData));
+        intent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(intent, null);
+        if (createInitialIntentArray().length > 0) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                shareIntent.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, createExcludeComponentArray());
+            } else {
+                shareIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, createInitialIntentArray());
+            }
+        }else{
+            Toast.makeText(this, R.string.no_apps_to_share, Toast.LENGTH_SHORT).show();
+        }
+
+        startActivity(shareIntent);
+    }
+
+    private String createMessageToShare(NoteData noteData) {
         StringBuilder message = new StringBuilder();
         message.append(noteData.getTitle())
                 .append(System.getProperty("line.separator"))
@@ -112,12 +136,57 @@ public class NoteListActivity extends NoteActivity implements ItemOnClickListene
                     .append(getString(R.string.deadline))
                     .append(noteData.getDeadline().toString());
         }
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT, message.toString());
+        return message.toString();
+    }
+
+    private ComponentName[] createExcludeComponentArray(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
 
-        Intent shareIntent = Intent.createChooser(intent, null);
-        startActivity(shareIntent);
+        List<ResolveInfo> resolveInfos = getPackageManager().queryIntentActivities(intent, 0);
+        List<ComponentName> componentList = new ArrayList<>();
+
+        for (ResolveInfo resolveInfo : resolveInfos) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            if (!(packageName.contains("twitter")
+                    || packageName.contains("facebook")
+                    || packageName.contains("whatsapp")
+                    || packageName.contains("messenger")
+                    || packageName.contains("messaging")
+                    || packageName.contains("vkontakte")
+                    || packageName.contains("skype")
+                    || packageName.contains("viber"))) {
+                componentList.add(new ComponentName(packageName, resolveInfo.activityInfo.name));
+            }
+        }
+
+        return componentList.toArray(new ComponentName[0]);
+    }
+
+    private Intent[] createInitialIntentArray(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+
+        List<ResolveInfo> resolveInfos = getPackageManager().queryIntentActivities(intent, 0);
+        List<Intent> intentList = new ArrayList<>();
+
+        for (ResolveInfo resolveInfo : resolveInfos) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            if (packageName.contains("twitter")
+                    || packageName.contains("facebook")
+                    || packageName.contains("whatsapp")
+                    || packageName.contains("messenger")
+                    || packageName.contains("messaging")
+                    || packageName.contains("vkontakte")
+                    || packageName.contains("skype")
+                    || packageName.contains("viber")) {
+                Intent extraIntent = new Intent(Intent.ACTION_SEND);
+                extraIntent.setComponent(new ComponentName(packageName, resolveInfo.activityInfo.name));
+                extraIntent.setType("text/plain");
+                intentList.add(extraIntent);
+            }
+        }
+
+        return intentList.toArray(new Intent[0]);
     }
 }
