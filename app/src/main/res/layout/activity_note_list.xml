@@ -18,7 +18,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".NoteListActivity">
+        tools:context=".notes.NoteListActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/notesListViewId"

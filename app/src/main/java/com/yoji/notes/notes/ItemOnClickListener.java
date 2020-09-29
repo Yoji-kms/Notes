@@ -1,4 +1,4 @@
-package com.yoji.notes;
+package com.yoji.notes.notes;
 
 public interface ItemOnClickListener {
     void getItemId(long id);

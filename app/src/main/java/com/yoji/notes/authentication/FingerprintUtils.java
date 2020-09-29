@@ -2,6 +2,7 @@ package com.yoji.notes.authentication;
 
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
@@ -32,5 +33,17 @@ public class FingerprintUtils {
     }
     public static boolean isSensorStateAt(@NonNull SensorState sensorState, @NonNull Context context){
         return checkSensorState(context) == sensorState;
+    }
+
+    public static void enableFingerprint(boolean useFingerprint, Context context){
+        SharedPreferences.Editor editor = context.getSharedPreferences("fingerprint",
+                Context.MODE_PRIVATE).edit();
+        editor.putBoolean(Key.FINGERPRINT, useFingerprint);
+        editor.apply();
+    }
+
+    public static boolean fingerprintEnabled(Context context) {
+        return context.getSharedPreferences("fingerprint", Context.MODE_PRIVATE)
+                .getBoolean(Key.FINGERPRINT, false);
     }
 }

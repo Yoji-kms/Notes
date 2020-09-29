@@ -1,20 +1,15 @@
 package com.yoji.notes.authentication;
 
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-public class AuthenticationActivity extends AppCompatActivity implements Keystore {
+public class HashedKeystore implements Keystore {
 
     private SharedPreferences sharedPreferences;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public HashedKeystore(Context context){
 
-        sharedPreferences = getSharedPreferences("saved_pin", MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("saved_pin", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -38,15 +33,5 @@ public class AuthenticationActivity extends AppCompatActivity implements Keystor
         editor.putString(Key.PIN, encodedPin);
         editor.putString(Key.IV, CryptoUtils.getIv());
         editor.apply();
-    }
-
-    public void enableFingerprint(boolean useFingerprint){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Key.FINGERPRINT, useFingerprint);
-        editor.apply();
-    }
-
-    public boolean fingerprintEnabled() {
-        return sharedPreferences.getBoolean(Key.FINGERPRINT, false);
     }
 }

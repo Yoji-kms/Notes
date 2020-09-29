@@ -1,16 +1,10 @@
-package com.yoji.notes;
+package com.yoji.notes.notes;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.app.Application;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
-import com.yoji.notes.authentication.SettingsActivity;
 import com.yoji.notes.database.NoteData;
 import com.yoji.notes.database.NotesRoomRepository;
 
@@ -21,16 +15,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class NoteActivity extends AppCompatActivity implements NoteRepository {
+public class DatabaseNoteRepository implements NoteRepository {
 
     private NotesRoomRepository notesRepository;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_note);
-
-        notesRepository = new NotesRoomRepository(getApplication());
+    public DatabaseNoteRepository(Application application) {
+        notesRepository = new NotesRoomRepository(application);
     }
 
     @Override
@@ -79,23 +69,5 @@ public class NoteActivity extends AppCompatActivity implements NoteRepository {
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_appbar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.settings_menu){
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -44,4 +44,6 @@
     <string name="authentication_failed">Authentication failed. Try again</string>
     <string name="authentication_error">Authentication error: </string>
     <string name="no_apps_to_share">No apps to share</string>
+    <string name="warning">Warning</string>
+    <string name="delete_warning_message">Are you sure you want to delete this note?</string>
 </resources>

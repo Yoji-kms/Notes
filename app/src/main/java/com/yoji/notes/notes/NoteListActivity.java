@@ -1,30 +1,37 @@
-package com.yoji.notes;
+package com.yoji.notes.notes;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.yoji.notes.App;
+import com.yoji.notes.R;
+import com.yoji.notes.authentication.SettingsActivity;
 import com.yoji.notes.database.NoteData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteListActivity extends NoteActivity implements ItemOnClickListener {
+public class NoteListActivity extends AppCompatActivity implements ItemOnClickListener {
 
     private LiveData<List<NoteData>> allNotesData;
     private NoteListActivityAdapter adapter;
@@ -33,6 +40,9 @@ public class NoteListActivity extends NoteActivity implements ItemOnClickListene
 
     private View.OnClickListener addItemOnClickListener = v -> startActivity(
             new Intent(NoteListActivity.this, CreateOrEditNoteActivity.class));
+
+    private DialogInterface.OnClickListener positiveButtonOnClickListener = (dialog, which) ->
+            App.getNoteRepository().deleteNoteById(noteId);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +59,7 @@ public class NoteListActivity extends NoteActivity implements ItemOnClickListene
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.title);
 
-        allNotesData = getNotes();
+        allNotesData = App.getNoteRepository().getNotes();
         adapter = new NoteListActivityAdapter(this, this);
         notesListView.setAdapter(adapter);
         notesListView.setLayoutManager(layoutManager);
@@ -83,10 +93,15 @@ public class NoteListActivity extends NoteActivity implements ItemOnClickListene
                 editNote();
                 return true;
             case R.id.delete_note:
-                deleteNoteById(noteId);
+                AlertDialog.Builder deleteDialog = new AlertDialog.Builder(this);
+                deleteDialog.setTitle(R.string.warning)
+                        .setMessage(R.string.delete_warning_message)
+                        .setPositiveButton(R.string.yes, positiveButtonOnClickListener)
+                        .setNegativeButton(R.string.no, null);
+                deleteDialog.create().show();
                 return true;
             case R.id.share_note:
-                shareNote(getNoteById(noteId));
+                shareNote(App.getNoteRepository().getNoteById(noteId));
                 return true;
             default:
                 return false;
@@ -100,6 +115,24 @@ public class NoteListActivity extends NoteActivity implements ItemOnClickListene
         inflater.inflate(R.menu.menu_context, menu);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_appbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.settings_menu){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void editNote() {
         Intent intent = new Intent(NoteListActivity.this, CreateOrEditNoteActivity.class);
         intent.putExtra("id", noteId);
@@ -110,13 +143,14 @@ public class NoteListActivity extends NoteActivity implements ItemOnClickListene
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, createMessageToShare(noteData));
         intent.setType("text/plain");
+        Intent[] initialIntentArray = createInitialIntentArray();
 
         Intent shareIntent = Intent.createChooser(intent, null);
-        if (createInitialIntentArray().length > 0) {
+        if (initialIntentArray.length > 0) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 shareIntent.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, createExcludeComponentArray());
             } else {
-                shareIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, createInitialIntentArray());
+                shareIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, initialIntentArray);
             }
         }else{
             Toast.makeText(this, R.string.no_apps_to_share, Toast.LENGTH_SHORT).show();

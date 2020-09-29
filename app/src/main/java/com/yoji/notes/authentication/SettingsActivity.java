@@ -1,6 +1,7 @@
 package com.yoji.notes.authentication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
@@ -16,11 +17,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
+import com.yoji.notes.App;
 import com.yoji.notes.R;
 
 import java.util.Objects;
 
-public class SettingsActivity extends AuthenticationActivity implements FragmentResultListener {
+public class SettingsActivity extends AppCompatActivity implements FragmentResultListener {
 
     private EditText newPinEdtTxt;
     private EditText confirmPinEdtTxt;
@@ -52,9 +54,9 @@ public class SettingsActivity extends AuthenticationActivity implements Fragment
 
     private View.OnClickListener saveBtnOnClickListener = v -> {
         String enteredPin = confirmPinEdtTxt.getText().toString().trim();
-        saveNewPin(enteredPin);
+        App.getKeystore().saveNewPin(enteredPin);
 
-        if (!fingerprintEnabled()
+        if (!FingerprintUtils.fingerprintEnabled(this)
                 && FingerprintUtils.isSensorStateAt(SensorState.READY, this)) {
             DialogFragment dialogFragment = new UseFingerprintDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
@@ -83,14 +85,14 @@ public class SettingsActivity extends AuthenticationActivity implements Fragment
         saveBtn = findViewById(R.id.saveBtnId);
         Button cancelBtn = findViewById(R.id.cancelBtnId);
 
-        cancelBtn.setEnabled(!hasNotSavedPin());
+        cancelBtn.setEnabled(!App.getKeystore().hasNotSavedPin());
 
         showNewPinBtn.setOnCheckedChangeListener(showNewPinBtnOnCheckedChangeListener);
         showConfirmPinBtn.setOnCheckedChangeListener(showConfirmPinBtnOnCheckedChangeListener);
 
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);
-        if (!hasNotSavedPin()) {
+        if (!App.getKeystore().hasNotSavedPin()) {
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
 
@@ -110,7 +112,7 @@ public class SettingsActivity extends AuthenticationActivity implements Fragment
 
     @Override
     public void onFinishDialogListener(boolean useFingerprint) {
-        enableFingerprint(useFingerprint);
+        FingerprintUtils.enableFingerprint(useFingerprint, this);
         Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
         startActivity(intent);
     }

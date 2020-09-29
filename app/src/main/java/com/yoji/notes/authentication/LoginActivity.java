@@ -1,6 +1,7 @@
 package com.yoji.notes.authentication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
@@ -16,12 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yoji.notes.NoteListActivity;
+import com.yoji.notes.notes.NoteListActivity;
 import com.yoji.notes.R;
 
 import java.util.concurrent.Executor;
 
-public class LoginActivity extends AuthenticationActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private StringBuilder enteredPinSb;
 
@@ -29,6 +30,7 @@ public class LoginActivity extends AuthenticationActivity {
     private Button[] numBtns = new Button[10];
     private TextView messageTxtView;
     private Button fingerprintBtn;
+    private HashedKeystore authenticationActivity;
 
     private View.OnClickListener numBtnOnClickListener = v -> {
         enteredPinSb.append(((Button) v).getText().toString());
@@ -51,14 +53,15 @@ public class LoginActivity extends AuthenticationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        authenticationActivity = new HashedKeystore(this);
 
-        if (hasNotSavedPin()) {
+        if (authenticationActivity.hasNotSavedPin()) {
             createPin();
         }
 
         init();
 
-        if (fingerprintEnabled()) {
+        if (FingerprintUtils.fingerprintEnabled(this)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 biometric();
             } else {
@@ -192,7 +195,7 @@ public class LoginActivity extends AuthenticationActivity {
     }
 
     private void checkPin() {
-        if (super.checkPin(enteredPinSb.toString())) {
+        if (authenticationActivity.checkPin(enteredPinSb.toString())) {
             startMainActivity();
         } else {
             Toast.makeText(this, R.string.wrong_pin, Toast.LENGTH_SHORT).show();

@@ -4,6 +4,7 @@
     package="com.yoji.notes">
 
     <application
+        android:name=".App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NoteListActivity" />
+        <activity android:name=".notes.NoteListActivity" />
         <activity android:name=".authentication.SettingsActivity" />
-        <activity android:name=".CreateOrEditNoteActivity" />
+        <activity android:name=".notes.CreateOrEditNoteActivity" />
     </application>
 
 </manifest>

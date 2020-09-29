@@ -1,4 +1,4 @@
-package com.yoji.notes;
+package com.yoji.notes.notes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yoji.notes.R;
 import com.yoji.notes.database.NoteData;
 
 import java.util.ArrayList;
@@ -98,14 +99,14 @@ public class NoteListActivityAdapter extends RecyclerView.Adapter<NoteListActivi
         };
 
         View.OnClickListener onClickListener = v -> {
-            if (holder.getTextTxtView().getLineCount() > 9) {
+            if (holder.getTextTxtView().getLineCount() > 3) {
                 holder.setWhole(true);
             }
         };
 
         ViewTreeObserver.OnPreDrawListener preDrawListener = () -> {
-            if (holder.getTextTxtView().getLineCount() > 9 && !holder.isWhole()) {
-                holder.getTextTxtView().setMaxLines(9);
+            if (holder.getTextTxtView().getLineCount() > 3 && !holder.isWhole()) {
+                holder.getTextTxtView().setMaxLines(3);
                 holder.getContinueTxtView().setVisibility(View.VISIBLE);
             } else {
                 holder.getTextTxtView().setMaxLines(Integer.MAX_VALUE);

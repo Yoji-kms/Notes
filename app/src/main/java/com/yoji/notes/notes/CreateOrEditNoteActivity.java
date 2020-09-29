@@ -1,6 +1,7 @@
-package com.yoji.notes;
+package com.yoji.notes.notes;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,14 +13,18 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.yoji.notes.App;
+import com.yoji.notes.R;
+import com.yoji.notes.authentication.SettingsActivity;
 import com.yoji.notes.database.NoteData;
 
 import java.util.Calendar;
 import java.util.Objects;
 
-public class CreateOrEditNoteActivity extends NoteActivity {
+public class CreateOrEditNoteActivity extends AppCompatActivity {
 
     private EditText titleEdtTxt;
     private EditText textEdtTxt;
@@ -146,7 +151,7 @@ public class CreateOrEditNoteActivity extends NoteActivity {
 
         calendar = Calendar.getInstance();
         if (id != 0) {
-            noteData = getNoteById(id);
+            noteData = App.getNoteRepository().getNoteById(id);
             restoreNoteData(noteData);
         }
     }
@@ -210,7 +215,7 @@ public class CreateOrEditNoteActivity extends NoteActivity {
         String text = textEdtTxt.getText().toString().trim();
         String deadline = deadlineEdtTxt.getText().toString().trim();
 
-        saveNote(noteData, title, text, deadline);
+        App.getNoteRepository().saveNote(noteData, title, text, deadline);
     }
 
     private void restoreNoteData(NoteData noteData) {
@@ -226,8 +231,14 @@ public class CreateOrEditNoteActivity extends NoteActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == android.R.id.home) {
-            finish();
+        switch (id){
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.settings_menu:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -28,4 +28,6 @@
     <string name="authentication_failed">Аутентификация провалена. Попробуте ещё раз</string>
     <string name="authentication_error">Ошибка аутентификации: </string>
     <string name="no_apps_to_share">Нет приложений, чтобы поделиться</string>
+    <string name="warning">Предупреждение</string>
+    <string name="delete_warning_message">Вы действительно хотите удалить эту заметку?</string>
 </resources>
