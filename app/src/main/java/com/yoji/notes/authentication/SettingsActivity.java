@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.yoji.notes.App;
@@ -54,14 +55,21 @@ public class SettingsActivity extends AppCompatActivity implements FragmentResul
 
     private View.OnClickListener saveBtnOnClickListener = v -> {
         String enteredPin = confirmPinEdtTxt.getText().toString().trim();
-        App.getKeystore().saveNewPin(enteredPin);
+        if (App.getKeystore().checkPin(enteredPin)){
+            Toast.makeText(this, R.string.pin_match, Toast.LENGTH_SHORT)
+                    .show();
+            newPinEdtTxt.setText("");
+            confirmPinEdtTxt.setText("");
+        }else {
+            App.getKeystore().saveNewPin(enteredPin);
 
-        if (!FingerprintUtils.fingerprintEnabled(this)
-                && FingerprintUtils.isSensorStateAt(SensorState.READY, this)) {
-            DialogFragment dialogFragment = new UseFingerprintDialogFragment();
-            dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
-        }else{
-            finish();
+            if (!FingerprintUtils.fingerprintEnabled(this)
+                    && FingerprintUtils.isSensorStateAt(SensorState.READY, this)) {
+                DialogFragment dialogFragment = new UseFingerprintDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
+            } else {
+                finish();
+            }
         }
     };
 
